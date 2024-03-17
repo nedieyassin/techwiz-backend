@@ -23,6 +23,21 @@ func main() {
 
 			return c.JSON(http.StatusOK, questions)
 		} /* optional middlewares */)
+
+		//
+		e.Router.POST("/api/c/questions/mark", func(c echo.Context) error {
+
+			questions := api.MarkQuestions{}
+
+			err := c.Bind(&questions)
+			if err != nil {
+				return err
+			}
+
+			questionsWithOptions := api.GetQuestionsToMarkHandler(app, questions.Questions)
+
+			return c.JSON(http.StatusOK, questionsWithOptions)
+		} /* optional middlewares */)
 		return nil
 	})
 

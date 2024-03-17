@@ -1,0 +1,7 @@
+# Ignore common unnecessary files and directories
+.git
+.vscode
+.idea
+*.log
+pb_data
+pgg-pb

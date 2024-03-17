@@ -100,3 +100,43 @@ func GetQuestionsHandler(app *pocketbase.PocketBase, topic string, difficulty st
 
 	return questions
 }
+func GetQuestionsToMarkHandler(app *pocketbase.PocketBase, mq []MarkQuestion) []QuestionWithAnswers {
+	// Slice to store retrieved questions
+	var rawQuestions []QuestionL
+
+	// Extract question IDs
+	var ids []interface{}
+	for _, item := range mq {
+		ids = append(ids, item.QuestionID)
+	}
+
+	// Execute the query
+	err := app.Dao().DB().Select("id", "options").From("questions").Where(dbx.In("id", ids...)).All(&rawQuestions)
+	if err != nil {
+		log.Fatalf("Error executing query: %v", err)
+	}
+
+	// Process retrieved questions
+	var questionsWithAnswers []QuestionWithAnswers
+	for _, question := range rawQuestions {
+		options, err := UnmarshalOptions(question.Options)
+		if err != nil {
+			log.Fatalf("Error unmarshalling options JSON: %v", err)
+		}
+
+		userAnswer := GetUserAnswer(question.ID, mq)
+
+		for _, option := range options {
+			if option.IsCorrect {
+				questionWithAnswer := QuestionWithAnswers{
+					Question: question.ID,
+					Answer:   option.ID,
+					Passed:   userAnswer == option.ID,
+				}
+				questionsWithAnswers = append(questionsWithAnswers, questionWithAnswer)
+			}
+		}
+	}
+
+	return questionsWithAnswers
+}
