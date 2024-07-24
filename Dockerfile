@@ -31,10 +31,6 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY frontend/ .
 
-# Ensure the tsconfig.app.json file includes the src directory
-RUN if [ ! -f tsconfig.app.json ]; then echo 'tsconfig.app.json not found'; exit 1; fi
-# RUN if ! grep -q '"src"' tsconfig.app.json; then echo '"src" directory not included in tsconfig.app.json'; exit 1; fi
-
 # Build the React app
 RUN npm run build
 
