@@ -23,7 +23,7 @@ FROM node:alpine as frontend-builder
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY dashboard/package*.json ./
+COPY frontend/package*.json ./
 
 # Install dependencies
 RUN npm install
