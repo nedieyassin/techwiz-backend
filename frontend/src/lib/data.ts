@@ -1,8 +1,9 @@
-import phpQuestions from "@/lib/questions/php.ts";
-import dockerQuestions from "@/lib/questions/docker.ts";
-import htmlcssjsQuestions from "@/lib/questions/htmlcssjs.ts";
-import linuxQuestions from "@/lib/questions/linux.ts";
-import sqlQuestions from "@/lib/questions/sql.ts";
+// import phpQuestions from "@/lib/questions/php.ts";
+// import dockerQuestions from "@/lib/questions/docker.ts";
+// import htmlcssjsQuestions from "@/lib/questions/htmlcssjs.ts";
+// import linuxQuestions from "@/lib/questions/linux.ts";
+// import sqlQuestions from "@/lib/questions/sql.ts";
+import  pythonQuestions from "@/lib/questions/python.ts";
 import pb from "@/lib/pocketbase.ts";
 
 export interface ICategory {
@@ -36,6 +37,12 @@ const categories: ICategory[] = [
         "icon": "devicon-php-plain",
         "name": "PHP",
         description: "PHP is a server-side scripting language designed for web development, often used to create dynamic web pages and interact with databases."
+    },
+    {
+        "id": 142,
+        "icon": "devicon-python-plain",
+        "name": "Python",
+        description: "Python is a high-level, interpreted programming language known for its readability, simplicity, and versatility. It was created by Guido van Rossum and first released in 1991. Python is widely used for various types of programming and software development, including web development, data analysis, artificial intelligence, machine learning, automation, scripting, and more."
     },
     {
         "id": 5,
@@ -82,11 +89,12 @@ function generateRandomString(length: number) {
 
 const addQuestions = () => {
     const aq = [
-        ...phpQuestions,
-        ...dockerQuestions,
-        ...htmlcssjsQuestions,
-        ...linuxQuestions,
-        ...sqlQuestions
+        // ...phpQuestions,
+        // ...dockerQuestions,
+        // ...htmlcssjsQuestions,
+        // ...linuxQuestions,
+        // ...sqlQuestions
+        ...pythonQuestions
     ].map((q) => ({
         topic: q.tags[0],
         ...q,

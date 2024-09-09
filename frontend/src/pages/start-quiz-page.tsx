@@ -4,14 +4,14 @@ import {categories} from "@/lib/data.ts";
 import {cn} from "@/lib/utils.ts";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group.tsx";
 import {Label} from "@/components/ui/label.tsx";
-import {buttonVariants} from "@/components/ui/button.tsx";
+import {Button, buttonVariants} from "@/components/ui/button.tsx";
 import TopicCard from "@/components/topic-card.tsx";
 import {useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import pb from "@/lib/pocketbase.ts";
 import useStore from "@/state";
 import {IQuestion} from "@/types/question.ts";
-import {Loader} from "lucide-react";
+import {ArrowLeft, Loader} from "lucide-react";
 import Footer from "@/components/footer.tsx";
 
 
@@ -54,6 +54,9 @@ function StartQuizPage() {
                 <i className={cn(" text-9xl text-brand-100 absolute right-4", category?.icon)}></i>
                 <div className="relative z-10">
                     <div className="flex items-center gap-3">
+                        <Button className="rounded-full" variant="ghost" size="icon" onClick={() => navigate(-1)}>
+                            <ArrowLeft />
+                        </Button>
                         <i className={cn("text-6xl text-brand-600 colored", category?.icon)}></i>
                         <h1 className="text-3xl md:text-6xl font-bold py-4"><span
                             className="text-brand-600-">{category?.name}</span>
